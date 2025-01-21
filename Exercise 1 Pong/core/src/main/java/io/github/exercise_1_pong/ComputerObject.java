@@ -8,12 +8,12 @@ import com.badlogic.gdx.Gdx;
 public class ComputerObject {
     private ShapeRenderer computerRenderer;
     private Rectangle paddle;
-    private float paddleWidth = 20; // Width of the paddle
-    private float paddleHeight = 100; // Height of the paddle
-    private float paddleX; // X position (fixed for computer)
-    private float paddleY; // Y position (moves steadily up and down)
-    private float speed = 400; // Speed of the paddle movement
-    private boolean movingUp = true; // Direction of movement
+    private float paddleWidth = 20;
+    private float paddleHeight = 100;
+    private float paddleX;
+    private float paddleY;
+    private float speed = 400;
+    private boolean movingUp = true;
 
     // Hardcoded wall bounds
     private final float upperWallY = 900;
