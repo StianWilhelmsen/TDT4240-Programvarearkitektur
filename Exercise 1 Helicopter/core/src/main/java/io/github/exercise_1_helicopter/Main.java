@@ -17,55 +17,52 @@ public class Main extends ApplicationAdapter {
     private Animation<TextureRegion> helicopterAnimation;
     private BitmapFont font;
 
-    private float stateTime; // Tracks elapsed time for animation
-    private float posX = 100; // Initial position X
-    private float posY = 100; // Initial position Y
-    private boolean facingRight = true; // Direction
+    private float stateTime;
+    private float posX = 100;
+    private float posY = 100;
+    private boolean facingRight = true;
 
-    private float xSpeed = 200; // Speed in X direction
-    private float ySpeed = 150; // Speed in Y direction
+    private float xSpeed = 200;
+    private float ySpeed = 150;
 
-    private float posX2 = 300; // Second sprite position X
-    private float posY2 = 300; // Second sprite position Y
-    private boolean facingRight2 = true; // Direction for second sprite
-    private float xSpeed2 = 250; // Speed for second sprite in X direction
-    private float ySpeed2 = 100; // Speed for second sprite in Y direction
+    private float posX2 = 300;
+    private float posY2 = 300;
+    private boolean facingRight2 = true;
+    private float xSpeed2 = 250;
+    private float ySpeed2 = 100;
 
-    private float posX3 = 500; // Third sprite position X
-    private float posY3 = 200; // Third sprite position Y
-    private boolean facingRight3 = true; // Direction for third sprite
-    private float xSpeed3 = 150; // Speed for third sprite in X direction
-    private float ySpeed3 = 200; // Speed for third sprite in Y direction
+    private float posX3 = 500;
+    private float posY3 = 200;
+    private boolean facingRight3 = true;
+    private float xSpeed3 = 150;
+    private float ySpeed3 = 200;
 
-    private float posX4 = 700; // Fourth sprite position X
-    private float posY4 = 400; // Fourth sprite position Y
-    private boolean facingRight4 = true; // Direction for fourth sprite
-    private float xSpeed4 = 180; // Speed for fourth sprite in X direction
-    private float ySpeed4 = 120; // Speed for fourth sprite in Y direction
+    private float posX4 = 700;
+    private float posY4 = 400;
+    private boolean facingRight4 = true;
+    private float xSpeed4 = 180;
+    private float ySpeed4 = 120;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
 
-        // Load individual textures for animation
         heli1 = new Texture("heli1.png");
         heli2 = new Texture("heli2.png");
         heli3 = new Texture("heli3.png");
         heli4 = new Texture("heli4.png");
 
-        // Create TextureRegions for animation
         TextureRegion[] helicopterFrames = new TextureRegion[4];
         helicopterFrames[0] = new TextureRegion(heli1);
         helicopterFrames[1] = new TextureRegion(heli2);
         helicopterFrames[2] = new TextureRegion(heli3);
         helicopterFrames[3] = new TextureRegion(heli4);
 
-        // Create the animation with 0.1 second per frame
         helicopterAnimation = new Animation<>(0.1f, helicopterFrames);
         helicopterAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         font = new BitmapFont(); // For drawing coordinates
-        stateTime = 0f; // Reset state time
+        stateTime = 0f;
     }
 
     @Override
@@ -73,41 +70,35 @@ public class Main extends ApplicationAdapter {
         // Clear screen with background color
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
-        // Update state time
         stateTime += Gdx.graphics.getDeltaTime();
 
         // Get the current frame of animation
         TextureRegion currentFrame = helicopterAnimation.getKeyFrame(stateTime);
 
-        // Update position for random movement
         updatePosition(Gdx.graphics.getDeltaTime());
         updateSecondSpritePosition(Gdx.graphics.getDeltaTime());
         updateThirdSpritePosition(Gdx.graphics.getDeltaTime());
         updateFourthSpritePosition(Gdx.graphics.getDeltaTime());
 
         batch.begin();
-        // Draw the first sprite
         if (facingRight) {
             batch.draw(currentFrame, posX, posY);
         } else {
             batch.draw(currentFrame, posX + currentFrame.getRegionWidth(), posY, -currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
 
-        // Draw the second sprite
         if (facingRight2) {
             batch.draw(currentFrame, posX2, posY2);
         } else {
             batch.draw(currentFrame, posX2 + currentFrame.getRegionWidth(), posY2, -currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
 
-        // Draw the third sprite
         if (facingRight3) {
             batch.draw(currentFrame, posX3, posY3);
         } else {
             batch.draw(currentFrame, posX3 + currentFrame.getRegionWidth(), posY3, -currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
 
-        // Draw the fourth sprite
         if (facingRight4) {
             batch.draw(currentFrame, posX4, posY4);
         } else {
@@ -126,7 +117,6 @@ public class Main extends ApplicationAdapter {
 
         batch.end();
 
-        // Check for collision
         checkCollision();
     }
 
@@ -134,13 +124,11 @@ public class Main extends ApplicationAdapter {
         posX += xSpeed * delta;
         posY += ySpeed * delta;
 
-        // Bounce logic for X-axis
         if (posX <= 0 || posX + 130 >= Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
             facingRight = !facingRight;
         }
 
-        // Bounce logic for Y-axis
         if (posY <= 0 || posY + 52 >= Gdx.graphics.getHeight()) {
             ySpeed = -ySpeed;
         }
@@ -150,13 +138,11 @@ public class Main extends ApplicationAdapter {
         posX2 += xSpeed2 * delta;
         posY2 += ySpeed2 * delta;
 
-        // Bounce logic for X-axis
         if (posX2 <= 0 || posX2 + 130 >= Gdx.graphics.getWidth()) {
             xSpeed2 = -xSpeed2;
             facingRight2 = !facingRight2;
         }
 
-        // Bounce logic for Y-axis
         if (posY2 <= 0 || posY2 + 52 >= Gdx.graphics.getHeight()) {
             ySpeed2 = -ySpeed2;
         }
@@ -166,13 +152,11 @@ public class Main extends ApplicationAdapter {
         posX3 += xSpeed3 * delta;
         posY3 += ySpeed3 * delta;
 
-        // Bounce logic for X-axis
         if (posX3 <= 0 || posX3 + 130 >= Gdx.graphics.getWidth()) {
             xSpeed3 = -xSpeed3;
             facingRight3 = !facingRight3;
         }
 
-        // Bounce logic for Y-axis
         if (posY3 <= 0 || posY3 + 52 >= Gdx.graphics.getHeight()) {
             ySpeed3 = -ySpeed3;
         }
@@ -182,13 +166,11 @@ public class Main extends ApplicationAdapter {
         posX4 += xSpeed4 * delta;
         posY4 += ySpeed4 * delta;
 
-        // Bounce logic for X-axis
         if (posX4 <= 0 || posX4 + 130 >= Gdx.graphics.getWidth()) {
             xSpeed4 = -xSpeed4;
             facingRight4 = !facingRight4;
         }
 
-        // Bounce logic for Y-axis
         if (posY4 <= 0 || posY4 + 52 >= Gdx.graphics.getHeight()) {
             ySpeed4 = -ySpeed4;
         }
